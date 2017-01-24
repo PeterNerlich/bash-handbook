@@ -6,7 +6,7 @@
 
 Dieses Dokument wurde für die geschrieben, die Bash lernen wollen, ohne zu tief einzusteigen.
 
-> **Tipp**: Versuche [**learnyourbash**](https://git.io/learnyoubash) — ein interaktiver Workshop, der auf diesem Handbuch basiert!
+> **Tipp**: Probieren Sie [**learnyourbash**](https://git.io/learnyoubash) — ein interaktiver Workshop, der auf diesem Handbuch basiert!
 
 # Installation in Node
 
@@ -47,21 +47,21 @@ Die Quelle ist hier verfügbar: <https://github.com/denysdovhan/bash-handbook>
   - [Streams](#streams)
   - [Pipes](#pipes)
   - [Lists of commands](#lists-of-commands)
-- [Konditionale Aussagen](#conditional-statements)
-  - [Primäre und kombinierende Ausdrücke](#primary-and-combining-expressions)
-  - [Den `if`-Ausdruck benutzen](#using-an-if-statement)
-  - [Den `case`-Ausdruck benutzen](#using-a-case-statement)
-- [Schleifen](#loops)
-  - [`for`-Schleife](#for-loop)
-  - [`while`-Schleife](#while-loop)
-  - [`until`-Schleife](#until-loop)
-  - [`select`-Schleife](#select-loop)
+- [Konditionale Aussagen](#konditionale-ausdrücke)
+  - [Primäre und kombinierende Ausdrücke](#primäre-und-kombinierende-ausdrücke)
+  - [Den `if`-Ausdruck benutzen](#den-if-ausdruck-benutzen)
+  - [Den `case`-Ausdruck benutzen](#den-case-ausdruck-benutzen)
+- [Schleifen](#scleifen)
+  - [`for`-Schleife](#for-schleife)
+  - [`while`-Schleife](#while-schleife)
+  - [`until`-Schleife](#until-schleife)
+  - [`select`-Schleife](#select-schleife)
   - [Loop control](#loop-control)
-- [Funktionen](#functions)
+- [Funktionen](#funktionen)
 - [Debugging](#debugging)
-- [Nachwort](#afterword)
-- [Weitere Ressourcen](#other-resources)
-- [Lizenz](#license)
+- [Nachwort](#nachwort)
+- [Weitere Ressourcen](#weitere-ressourcen)
+- [Lizenz](#lizenz)
 
 # Einleitung
 
@@ -117,8 +117,8 @@ Im nicht-interaktiven Modus liest die Shell Befehle aus einer Datei oder Leitung
 
 Die folgenden Befehle werden zur Ausführung der Shell im nicht-interaktiven Modus genommen:
 
-    sh /path/to/script.sh
-    bash /path/to/script.sh
+    sh /pfad/zum/skript.sh
+    bash /pfad/zum/skript.sh
 
 Im obigen Beispiel ist `script.sh` nur eine gewöhnliche Textdatei, die aus Befehlen besteht, welche der Shell-Interpreter auswerten kann und `sh` oder `bash` ist das Interpreterprogramm der Shell. `script.sh` kann mit Ihrem bevorzugten Texteditor erstellt werden (z.B. vim, nano, Sublime Text, Atom, usw.).
 
@@ -130,7 +130,7 @@ Zusätzlich muss die erste Zeile des Skripts das Programm mitteilen, mit dem es 
 
 ```bash
 #!/bin/bash
-echo "Hello, world!"
+echo "Hallo Welt!"
 ```
 
 Oder wenn `sh` dem `bash` vorgezogen wird, ändern Sie `#!/bin/bash` zu `#!/bin/sh`. Das `#!` wird [shebang](http://en.wikipedia.org/wiki/Shebang_%28Unix%29) genannt. Jetzt kann das Skript wie folgt ausgeführt werden:
@@ -143,7 +143,7 @@ Eine weitere Möglichkeit, die shebang-Zeile einzusetzen lautet folgendemaßen:
 
 ```bash
 #!/usr/bin/env bash
-echo "Hello Welt!"
+echo "Hallo Welt!"
 ```
 
 Der Vorteil dieser shebang-Zeile ist, dass es nach dem Programm (in diesem Fall `bash`) auf der `PATH`-Umgebungsvariable basiert suchen wird. Das ist oft der erstgenannten Methode vorzuziehen, da der Ort des Programms im Dateisystem nicht immer angenommen werden kann. Es ist auch hilfreich, wenn die `PATH`-Variable eines Systems darauf konfiguriert wurde, auf eine alternative Version des Programms zu weisen. Zum Beispiel könnte jemand eine neuere Version von `bash` installieren, das Original aber behalten und den Ort der neuen Version einfach in die `PATH`-Variable einfügen. `#!/bin/bash` würde dann das original `bash` nutzen, während `#!/usr/bin/env bash` die neuere Version verwenden würde.
