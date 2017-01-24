@@ -153,25 +153,25 @@ Der Vorteil dieser shebang-Zeile ist, dass es nach dem Programm (in diesem Fall 
 
 Jeder Befehl gibt einen **Exit-Code** (**return status** oder **exit status**) zurück. Ein erfolgreicher Befehl wird immer `0` (zero-code) zurückkgeben, während ein fehlgeschlagener Befehl einen Wert ungleich 0 zurückgibt (error code). Diese Fehlercodes müssen positive Ganzzahlen zwischen 1 und 255 sein.
 
-Ein weiterer nützlicher Befehlt, den wir beim Schreiben von Skripten verwenden können, lautet `exit`. Dieser Befehl beendet die aktuelle Ausführung und gibt einen Exit-Code an die Shell zurück. `exit` ohne folgende Argumente wird das laufende Skript abbrechenund den Exit-Code des im Skript zuletzt ausgeführten Befehls vor `exit` zurückgeben.
+Ein weiterer nützlicher Befehl, den wir beim Schreiben von Skripten verwenden können, lautet `exit`. Dieser Befehl beendet die aktuelle Ausführung und gibt einen Exit-Code an die Shell zurück. `exit` ohne folgende Argumente wird das laufende Skript abbrechenund den Exit-Code des im Skript zuletzt ausgeführten Befehls vor `exit` zurückgeben.
 
 Wenn sich ein Programm beendet, ordnet die Shell den **Exit-Code** der `$?`Umgebungsvariable zu. Die `$?`-Variable ist der typische Weg, den Erfolg eines Skriptes abzufragen.
 
 So wie wir `exit` nutzen können, um ein Skript zu beenden, wird der `return`-Befehl zum Beenden einer Funktion eingesetzt und gibt einen **Exit-Code** an den Aufruf zurück. Innerhalb einer Funktion kann auch `exit` benutzt werden und es wird die Funktion _und_ das Programm beenden.
 
-# Comments
+# Kommentare
 
-Scripts may contain _comments_. Comments are special statements ignored by the `shell` interpreter. They begin with a `#` symbol and continue on to the end of the line.
+Skripte können _Kommentare_ enthalten. Kommentare sind spezielle Aussagen, die von dem `shell`-Interpreter ignoriert werden. Sie beginnen mit dem Symbol `#` und gehen bis zum Ende der Zeile.
 
-For example:
+Zum Beispiel:
 
 ```bash
 #!/bin/bash
-# This script will print your username.
+# Dieses Skript wird den Benutzernamen ausgeben.
 whoami
 ```
 
-> **Tip**: Use comments to explain what your script does and _why_.
+> **Tipp**: Nutzen Sie Kommentare, um zu erklären, was das Skript macht und _warum_.
 
 # Variables
 
