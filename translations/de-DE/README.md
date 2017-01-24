@@ -173,77 +173,77 @@ whoami
 
 > **Tipp**: Nutzen Sie Kommentare, um zu erklären, was das Skript macht und _warum_.
 
-# Variables
+# Variablen
 
-Like in most programming languages, you can also create variables in bash.
+Wie in den meisten Programmiersprachen können auch in bash Variablen gesetzt werden.
 
-Bash knows no data types. Variables can contain only numbers or a string of one or more characters. There are three kinds of variables you can create: local variables, environment variables and variables as _positional arguments_.
+Bash kennt keine Datentypen. Variablen können nur Zahlen oder Zeichenketten der Länge 1 oder mehr enthalten. Es gibt drei Arten von Variablen: lokale Variablen, Umgebungsvariablen und Variablen als _Positionsargumente_.
 
-## Local variables
+## Lokale Variablen
 
-**Local variables** are variables that exist only within a single script. They are inaccessible to other programs and scripts.
+**Lokale Variablen** sind Variablen, die nur in einem einzelnen Skript existieren. Für andere Programme und Skripte sind sie nicht zugänglich.
 
-A local variable can be declared using `=` sign (as a rule, there **should not** be any spaces between a variable's name, `=` and its value) and its value can be retrieved using the `$` sign. For example:
-
-```bash
-username="denysdovhan"  # declare variable
-echo $username          # display value
-unset username          # delete variable
-```
-
-We can also declare a variable local to a single function using the `local` keyword. Doing so causes the variable to disappear when the function exits.
+Eine lokale Variable kann mit dem Zeichen `=` deklariert werden (als Regel, es **dürfen keine** Leerzeichen zwischen dem Namen der Variable, dem `=` und dem Wert stehen) und ihr Wert kann mit dem `$`-Zeichen abgefragt werden. Zum Beispiel:
 
 ```bash
-local local_var="I'm a local value"
+benutzername="denysdovhan"  # Variable deklarieren
+echo $benutzername          # Wert anzeigen
+unset benutzername          # Variable löschen
 ```
 
-## Environment variables
-
-**Environment variables** are variables accessible to any program or script running in current shell session. They are created just like local variables, but using the keyword `export` instead.
+Eine Variable kann auch für nur in einer Funktion zugänglich deklariert werden, über da Schlüsselwort `local`. Dadurch verschwindet die Variable, subald die Funktion beendet wird.
 
 ```bash
-export GLOBAL_VAR="I'm a global variable"
+local local_var="Ich bin ein lokaler Wert"
 ```
 
-There are _a lot_ of global variables in bash. You will meet these variables fairly often, so here is a quick lookup table with the most practical ones:
+## Umgebungsvariablen
 
-| Variable     | Description                                                   |
+**Umgebungsvariablen** sind allen Programmen oder Skripten, die in einer gemeinsamen Shell-Sitzung laufen, zugänglich. Sie werden wie lokale Variablen erstellt, nur mit dem Schlüsselwort `export`.
+
+```bash
+export GLOBAL_VAR="Ich bin eine globale Variable"
+```
+
+Es gibt _ziemlich viele_ globale Variablen in Bash. Darauf werden Sie häufig stoßen, darum hier eine schnelle Übersicht über die nützlichsten:
+
+| Variable     | Beschreibung                                                  |
 | :----------- | :------------------------------------------------------------ |
-| `$HOME`      | The current user's home directory.                            |
-| `$PATH`      | A colon-separated list of directories in which the shell looks for commands. |
-| `$PWD`       | The current working directory.                                |
-| `$RANDOM`    | Random integer between 0 and 32767.                           |
-| `$UID`       | The numeric, real user ID of the current user.                |
+| `$HOME`      | Das Home-Verzeichnis des aktuellen Nutzers.                   |
+| `$PATH`      | Eine Komma-separierte Liste von Verzeichnissen, in denen die Shell nach Befehlen sucht. |
+| `$PWD`       | Das aktuelle Arbeitsverzeichnis.                              |
+| `$RANDOM`    | Zufällige Ganzzahl zwischen 0 und 32767.                      |
+| `$UID`       | Die numerische, echte Nutzer-ID des aktuellen Nutzers.        |
 | `$PS1`       | The primary prompt string.                                    |
 | `$PS2`       | The secondary prompt string.                                  |
 
-Follow [this link](http://tldp.org/LDP/Bash-Beginners-Guide/html/sect_03_02.html#sect_03_02_04) to see an extended list of environment variables in Bash.
+Unter [diesem Link](http://tldp.org/LDP/Bash-Beginners-Guide/html/sect_03_02.html#sect_03_02_04) finden Sie eine erweiterte Liste von Umgebungsvariablen in Bash.
 
-## Positional parameters
+## Positionale Parameter
 
-**Positional parameters** are variables allocated when a function is evaluated and are given positionally. The following table lists positional parameter variables and other special variables and their meanings when you are inside a function.
+**Positionale Parameter** sind Variablen, die beim Aufruf einer Funktion zugeordnet werden und werden nach Position vergeben. Die folgende Tabelle zählt die Variablen der positionellen Parameter, andere spezielle Variablen und ihre Bedeutung innerhalb der Funktion auf.
 
-| Parameter      | Description                                                 |
+| Parameter      | Beschreibung                                                |
 | :------------- | :---------------------------------------------------------- |
-| `$0`           | Script's name.                                              |
-| `$1 … $9`      | The parameter list elements from 1 to 9.                     |
-| `${10} … ${N}` | The parameter list elements from 10 to N.                    |
-| `$*` or `$@`   | All positional parameters except `$0`.                      |
-| `$#`           | The number of parameters, not counting `$0`.                 |
-| `$FUNCNAME`    | The function name (has a value only inside a function).     |
+| `$0`           | Name des Skriptes.                                          |
+| `$1 … $9`      | Der Parameter zählt die Elemente von 1 bis 9 auf.           |
+| `${10} … ${N}` | Der Parameter zählt die Elemente von 10 bis N auf.          |
+| `$*` or `$@`   | Alle positionalen Parameter, außer `$0`.                    |
+| `$#`           | Die Anzahl der Parameters, ohne `$0`.                       |
+| `$FUNCNAME`    | Der Funktionsname (nur innerhalb einer Funktion belegt).    |
 
-In the example below, the positional parameters will be `$0='./script.sh'`,  `$1='foo'` and `$2='bar'`:
+Im untenstehenden Beispiel werden die positionalen Parameter `$0='./script.sh'`,  `$1='foo'` und `$2='bar'` sein:
 
     ./script.sh foo bar
 
-Variables may also have _default_ values. We can define as such using the following syntax:
+Variablen können auch _Standardwerte_ besitzen. Diese können mit folgender Syntax definiert werden:
 
 ```bash
- # if variables are empty, assign them default values
-: ${VAR:='default'}
-: ${$1:='first'}
+ # falls die Variablen leer sind, Standardwert zuweisen
+: ${VAR:='standard'}
+: ${$1:='erste'}
 # or
-FOO=${FOO:-'default'}
+FOO=${FOO:-'standard'}
 ```
 
 # Shell expansions
