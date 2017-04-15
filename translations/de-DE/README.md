@@ -33,7 +33,7 @@ Die Quelle ist hier verfügbar: <https://github.com/denysdovhan/bash-handbook>
   - [Umgebungsvariablen](#umgebungs-variablen)
   - [Positionale Parameter](#positionale-parameter)
 - [Shell-Erweiterungen](#shell-erweiterungen)
-  - [Brace expansion](#brace-expansion)
+  - [Klammerausdehnung](#klammerausdehnung)
   - [Command substitution](#command-substitution)
   - [Arithmetische Erweiterung](#arithmetische-erweiterung)
   - [Doppelte und einfache Hochkommata](#doppelte-und-einfache-hochkommata)
@@ -246,21 +246,21 @@ Variablen können auch _Standardwerte_ besitzen. Diese können mit folgender Syn
 FOO=${FOO:-'standard'}
 ```
 
-# Shell expansions
+# Shell-Erweiterungen
 
-_Expansions_ are performed on the command line after it has been split into _tokens_. In other words, these expansions are a mechanism to calculate arithmetical operations, to save results of commands' executions and so on.
+_Erweiterungen_ werden auf die Kommandozeile angewendet, nachdem sie in _Zeichen_ geteilt wurde. In anderen Worten sind diese Erweiterungen ein Mechanismus, arithmetische Operationen zu berechnen, um die Ergebnisse der Ausführungen der Kommandos zu speichern und so weiter.
 
-If you are interested, you can read [more about shell expansions](https://www.gnu.org/software/bash/manual/bash.html#Shell-Expansions).
+Wenn Sie interessiert sind, können Sie [hier mehr über Shell-Erweiterungen lesen](https://www.gnu.org/software/bash/manual/bash.html#Shell-Expansions).
 
-## Brace expansion
+## Klammerausdehnung
 
-Brace expansion allows us to generate arbitrary strings. It's similar to _filename expansion_. For example:
+Die Klammerausdehnung erlaubt uns, beliebige Zeichenketten zu erzeugen. Es ähnelt der _Dateinamenerweiterung_. Zum Beispiel:
 
 ```bash
 echo beg{i,a,u}n # begin began begun
 ```
 
-Also brace expansions may be used for creating ranges, which are iterated over in loops.
+Klammerausdehnungen können auch benutzt werden, um Folgen zu definieren, durch die in Schleifen iteriert wird.
 
 ```bash
 echo {0..5} # 0 1 2 3 4 5
