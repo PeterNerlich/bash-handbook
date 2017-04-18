@@ -34,7 +34,7 @@ Die Quelle ist hier verfügbar: <https://github.com/denysdovhan/bash-handbook>
   - [Positionale Parameter](#positionale-parameter)
 - [Shell-Erweiterungen](#shell-erweiterungen)
   - [Klammerausdehnung](#klammerausdehnung)
-  - [Command substitution](#command-substitution)
+  - [Befehlssubstitution](#command-substitution)
   - [Arithmetische Erweiterung](#arithmetische-erweiterung)
   - [Doppelte und einfache Hochkommata](#doppelte-und-einfache-hochkommata)
 - [Listen](#listen)
@@ -267,9 +267,9 @@ echo {0..5} # 0 1 2 3 4 5
 echo {00..8..2} # 00 02 04 06 08
 ```
 
-## Command substitution
+## Befehlssubstitution
 
-Command substitution allow us to evaluate a command and substitute its value into another command or variable assignment. Command substitution is performed when a command is enclosed by ``` `` ``` or `$()`.  For example, we can use it as follows:
+Die Befehlssubstitution erlaubt uns, einen Befehl auszuwerten und seinen Wert in einen anderen Befehl oder Variablenbelegung zu setzen. Sie wird ausgeführt, wenn der Befehl von ``` `` ``` oder `$()` umschlossen ist. Das kann beispielsweise wie folgt genutzt werden:
 
 ```bash
 now=`date +%T`
