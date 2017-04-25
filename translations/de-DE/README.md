@@ -279,16 +279,16 @@ now=$(date +%T)
 echo $now # 19:08:26
 ```
 
-## Arithmetic expansion
+## Arithmetische Erweiterung
 
-In bash we are free to do any arithmetical operations. But the expression must enclosed by `$(( ))` The format for arithmetic expansions is:
+In bash können wir jede arithmetische Operation anwenden. Der Ausdruck muss allerdings durch `$(( ))` eingeschlossen sein. Das Format arithmetischer Erweiterungen ist:
 
 ```bash
-result=$(( ((10 + 5*3) - 7) / 2 ))
-echo $result # 9
+ergebnis=$(( ((10 + 5*3) - 7) / 2 ))
+echo $ergebnis # 9
 ```
 
-Within arithmetic expansions, variables should generally be used without a `$` prefix:
+Innerhalb einer arithmetischen Erweiterung, Variablen sollten für gewöhnlich ohne `$`-Präfix stehen:
 
 ```bash
 x=4
