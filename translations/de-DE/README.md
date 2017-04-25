@@ -288,7 +288,7 @@ ergebnis=$(( ((10 + 5*3) - 7) / 2 ))
 echo $ergebnis # 9
 ```
 
-Innerhalb einer arithmetischen Erweiterung, Variablen sollten für gewöhnlich ohne `$`-Präfix stehen:
+Innerhalb einer arithmetischen Erweiterung, Variablen sollten für gewöhnlich ohne `$`–Präfix stehen:
 
 ```bash
 x=4
@@ -298,34 +298,34 @@ echo $(( ++x + y++ )) # 12
 echo $(( x + y ))     # 13
 ```
 
-## Double and single quotes
+## Doppelte und einfache Anführungszeichen
 
-There is an important difference between double and single quotes. Inside double quotes variables or command substitutions are expanded. Inside single quotes they are not. For example:
-
-```bash
-echo "Your home: $HOME" # Your home: /Users/<username>
-echo 'Your home: $HOME' # Your home: $HOME
-```
-
-Take care to expand local variables and environment variables within quotes if they could contain whitespace. As an innocuous example, consider using `echo` to print some user input:
+Es gibt einen wichtigen Unterschied zwischen dopplten und einfachen Anführungszeichen. In doppelten Anführungszeichen werden Variablen oder Befehlssubstitutionen ausgedehnt, in einfachen nicht. Zum Beispiel:
 
 ```bash
-INPUT="A string  with   strange    whitespace."
-echo $INPUT   # A string with strange whitespace.
-echo "$INPUT" # A string  with   strange    whitespace.
+echo "Dein home-Verzeichnis: $HOME" # Dein home-Verzeichnis: /Users/<username>
+echo 'Dein home-Verzeichnis: $HOME' # Dein home-Verzeichnis: $HOME
 ```
 
-The first `echo` is invoked with 5 separate arguments — $INPUT is split into separate words, `echo` prints a single space character between each. In the second case, `echo` is invoked with a single argument (the entire $INPUT value, including whitespace).
-
-Now consider a more serious example:
+Vorsicht beim Ausdehnen lokaler Variablen und Umgebungsvariablen in Anführungszeichen, sollten sie Leerzeichen enthalten. Als harmloses Beispiel, Benutzereingaben mit `echo` ausgeben:
 
 ```bash
-FILE="Favorite Things.txt"
-cat $FILE   # attempts to print 2 files: `Favorite` and `Things.txt`
-cat "$FILE" # prints 1 file: `Favorite Things.txt`
+INPUT="Ein String  mit   seltsamen    Leerzeichen."
+echo $INPUT   # Ein String mit seltsamen Leerzeichen.
+echo "$INPUT" # Ein String  mit   seltsamen    Leerzeichen.
 ```
 
-While the issue in this example could be resolved by renaming FILE to `Favorite-Things.txt`, consider input coming from an environment variable, a positional parameter, or the output of another command (`find`, `cat`, etc). If the input *might* contain whitespace, take care to wrap the expansion in quotes.
+Das erste `echo` wird mit 5 separaten Argumenten aufgerufen — $INPUT wird in separate Worte aufgeteilt, zwischen denen `echo` nur ein einziges Leerzeichen ausgibt. Im zweiten Fall wird `echo` mit einem einzigen Argument aufgerufen (der ganze $INPUT–Wert, inklusive Leerzeichen).
+
+Nun ein ernsteres Beispiel:
+
+```bash
+DATEI="Coole Sachen.txt"
+cat $DATEI   # versucht, zwei Dateien auszugeben: `Coole` und `Sachen.txt`
+cat "$DATEI" # gibt 1 Datei aus: `Coole Sachen.txt`
+```
+
+Während das Problem in diesem Beispiel aus dem Weg geräumt werden könnte, in dem die Datei zu `Coole-Sachen.txt` umbenannt wird, könnte die Eingabe auch über eine Umgebungsvariable, einen positionalen Parameter oder die Ausgabe eines anderen Befehls erfolgen (`find`, `cat`, usw). Wenn die Eingabe Leerzeichen ennthalten *könnte*, ist Vorsicht beim umranden mit Hochkommata geboten.
 
 # Arrays
 
