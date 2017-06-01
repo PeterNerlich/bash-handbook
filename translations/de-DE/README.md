@@ -327,107 +327,107 @@ cat "$DATEI" # gibt 1 Datei aus: `Coole Sachen.txt`
 
 Während das Problem in diesem Beispiel aus dem Weg geräumt werden könnte, in dem die Datei zu `Coole-Sachen.txt` umbenannt wird, könnte die Eingabe auch über eine Umgebungsvariable, einen positionalen Parameter oder die Ausgabe eines anderen Befehls erfolgen (`find`, `cat`, usw). Wenn die Eingabe Leerzeichen ennthalten *könnte*, ist Vorsicht beim umranden mit Hochkommata geboten.
 
-# Arrays
+# Listen
 
-Like in other programming languages, an array in bash is a variable that allows you to refer to multiple values. In bash, arrays are also zero-based, that is, the first element in an array has index 0.
+Wie in anderen Programmiersprachen auch ist eine Liste in Bash eine Variable, die es erlaubt, auf mehrere Werte zuzugreifen. In Bash sind Listen auch Null-basiert, das bedeutet, dass das erste Element den Index 0 hat.
 
-When dealing with arrays, we should be aware of the special environment variable `IFS`. **IFS**, or **Input Field Separator**, is the character that separates elements in an array. The default value is an empty space `IFS=' '`.
+Beim Arbeiten mit Listen muss auf die besondere Umgebungsvariable `IFS` geachtet werden. **IFS**, oder **Input Field Separator (Eingabefeldseparator)** ist das Zeichen, das die Element einer Liste trennt. Der Standardwert dafür ist das Leerzeichen `IFS=' '`.
 
-## Array declaration
+## Listendeklaration
 
-In bash you create an array by simply assigning a value to an index in the array variable:
+In Bash werden Listen durch einfaches Zuweisen eines Wertes zu einem Index der Listenvariable deklariert:
 
 ```bash
-fruits[0]=Apple
-fruits[1]=Pear
-fruits[2]=Plum
+fruechte[0]=Apfel
+fruechte[1]=Birne
+fruechte[2]=Pflaume
 ```
 
-Array variables can also be created using compound assignments such as:
+Listenvariablen können auch durch Verbundzuweisungen erstellt werden:
 
 ```bash
-fruits=(Apple Pear Plum)
+fruechte=(Apfel Birne Pflaume)
 ```
 
-## Array expansion
+## Listenerweiterung
 
-Individual array elements are expanded similar to other variables:
+Einzelne Listenelemente können, anderen Variablen ähnlich, erweitert werden:
 
 ```bash
-echo ${fruits[1]} # Pear
+echo ${fruechte[1]} # Birne
 ```
 
-The entire array can be expanded by using `*` or `@` in place of the numeric index:
+Die ganze Liste kann mit `*` oder `@` statt des numerischen Indexes erweitert werden:
 
 ```bash
-echo ${fruits[*]} # Apple Pear Plum
-echo ${fruits[@]} # Apple Pear Plum
+echo ${fruechte[*]} # Apfel Birne Pflaume
+echo ${fruechte[@]} # Apfel Birne Pflaume
 ```
 
-There is an important (and subtle) difference between the two lines above: consider an array element containing whitespace:
+Es gibt einen wichtigen (und unscheinbaren) Unterschied zwischen den beiden Zeilen: Mit einer Liste, die Leerzeichen enthält:
 
 ```bash
-fruits[0]=Apple
-fruits[1]="Desert fig"
-fruits[2]=Plum
+fruechte[0]=Apfel
+fruechte[1]="Abb: Nachtisch"
+fruechte[2]=Pflaume
 ```
 
-We want to print each element of the array on a separate line, so we try to use the `printf` builtin:
+Jedes Element soll auf einer neuen Zeile ausgegeben werden, also versuchen wir, `printf` zu nutzen:
 
 ```bash
-printf "+ %s\n" ${fruits[*]}
-# + Apple
-# + Desert
-# + fig
-# + Plum
+printf "+ %s\n" ${fruechte[*]}
+# + Apfel
+# + Abb:
+# + Nachtisch
+# + Pflaume
 ```
 
-Why were `Desert` and `fig` printed on separate lines? Let's try to use quoting:
+Warum wurden `Abb:` und `Nachtisch` auf verschiedenen Zeilen ausgegeben? Noch ein Versuch, mit Hochkommata:
 
 ```bash
-printf "+ %s\n" "${fruits[*]}"
-# + Apple Desert fig Plum
+printf "+ %s\n" "${fruechte[*]}"
+# + Apfel Abb: Nachtisch Pflaume
 ```
 
-Now everything is on one line — that's not what we wanted! Here's where `${fruits[@]}` comes into play:
+Jetzt ist alles wieder auf einer einzigen Zeile — das wollten wir aber nicht! Hier kommt `${fruits[@]}` ins Spiel:
 
 ```bash
-printf "+ %s\n" "${fruits[@]}"
-# + Apple
-# + Desert fig
-# + Plum
+printf "+ %s\n" "${fruechte[@]}"
+# + Apfel
+# + Abb: Nachtisch
+# + Pflaume
 ```
 
-Within double quotes, `${fruits[@]}` expands to a separate argument for each element in the array; whitespace in the array elements is preserved.
+In doppelten Hochkommata erweitert `${fruits[@]}` in ein separates Argument für jedes Element in der Liste; Leerzeichen in den Listenelementen bleiben erhalten.
 
-## Array slice
+## Listen teilen
 
-Besides, we can extract a slice of array using the _slice_ operators:
+Außerdem können wir einen Teil der Liste mit dem _slice_–Operator extrahieren:
 
 ```bash
-echo ${fruits[@]:0:2} # Apple Desert fig
+echo ${fruechte[@]:0:2} # Apfel Abb: Nachtisch
 ```
 
-In the example above, `${fruits[@]}` expands to the entire contents of the array, and `:0:2` extracts the slice of length 2, that starts at index 0.
+Im obigen Beispiel erweitert `${fruechte[@]}` zum gesamten Inhalts der Liste und `:0:2` extrahiert den Teil der Länge 2, der am Index 0 beginnt.
 
-## Adding elements into an array
+## Elemente einer Liste hinzufügen
 
-Adding elements into an array is quite simple too. Compound assignments are specially useful in this case. We can use them like this:
+Elemente hinzuzufügen ist auch zimlich einfach. Verbundzuweisungen sind in diesem Fall besonders hilfreich. Sie können folgendermaßen genutzt werden:
 
 ```bash
-fruits=(Orange "${fruits[@]}" Banana Cherry)
-echo ${fruits[@]} # Orange Apple Desert fig Plum Banana Cherry
+fruechte=(Orange "${fruechte[@]}" Banane Kirsche)
+echo ${fruechte[@]} # Orange Apfel Abb: Nachtisch Pflaume Banane Kirsche
 ```
 
-The example above, `${fruits[@]}` expands to the entire contents of the array and substitutes it into the compound assignment, then assigns the new value into the `fruits` array mutating its original value.
+Im obigen Beispiel erweitert `${fruechte[@]}` zum gesamten Inhalt der Liste und setzt es in eine Verbundzuweisung, weist den neuen Wert dann der `fruechte`–Liste zu, was ihren ursprünglichen Wert verändert.
 
-## Deleting elements from an array
+## Elemente aus einer Liste löschen
 
-To delete an element from an array, use the `unset` command:
+Zum löschen eines Elements wird der `unset`–Befehl genutzt:
 
 ```bash
-unset fruits[0]
-echo ${fruits[@]} # Apple Desert fig Plum Banana Cherry
+unset fruechte[0]
+echo ${fruechte[@]} # Apfel Abb: Nachtisch Pflaume Banane Kirsche
 ```
 
 # Streams, pipes and lists
